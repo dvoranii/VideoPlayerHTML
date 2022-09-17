@@ -1,7 +1,5 @@
-const thumb = document.querySelector(".thumbnail");
 const video = document.querySelector(".video");
 const videoControls = document.getElementById("video-controls");
-
 const videoWorks = !!document.createElement("video").canPlayType;
 
 // play/pause
@@ -61,7 +59,6 @@ function updateVolume() {
   if (video.muted) {
     video.muted = false;
   }
-
   video.volume = volumeControl.value;
 }
 
@@ -98,5 +95,4 @@ function toggleMute() {
     updateVolumeIcon();
   }
 }
-
 volumeBtnContainer.addEventListener("click", toggleMute);

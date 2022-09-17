@@ -15,17 +15,15 @@
            <video controls class="video" id="video" preload="metadata" poster="poster.jpg">
                <source src="video.mp4" type="video/mp4"></source>
            </video>
-   
            <div class="video-controls" id="video-controls">
                <div class="video-progress">
                    <progress id="progress-bar" value="0" min="0" max="100"></progress>
                    <input class="seek" id="seek" value="0" min="0" type="range" step="1">
                    <div class="seek-tooltip" id="seek-tooltip">00:00</div>
                </div>
-
                <div class="bottom-controls">
                 <div class="left-controls">
-                    <button data-title="'Play (k)" id="play-btn">
+                    <button data-title="Play (k)" id="play-btn">
                         <img src="play-btn.png" alt="" class="play">
                         <img src="pause-btn.png" alt="" class="pause hide">
                     </button>
@@ -36,15 +34,26 @@
                             <img src="volume-low.png" alt="" class="volume-low hide">
                             <img src="volume-mute.png" alt="" class="volume-mute hide">
                         </button>
-
                         <input type="range" class="volume" id="volume" value="1" data-mute="0.5" min="0" max="1" step="0.01">
                     </div>
+
+                    <div class="time">
+                        <time id="time-elapsed">00:00</time>
+                        <span>/</span>
+                        <time id="duration">00:00</time>
+                    </div>
+                </div>
+                <div class="right-controls">
+                    <button data-title="PIP (p)" class="pip-btn" id="pip-btn">
+                        <img src="pip-icon.png" alt="">
+                    </button>
+                    <button class="fullscreen-btn" id="fullscreen-btn" data-title="Fullscreen (f)">
+                        <img src="fullscreen-icon.png" alt="" class="fullscreen">
+                        <img src="minimize-icon.png" alt="" class="fullscreen-exit">
+                    </button>
                 </div>
                </div>
-
            </div>
-
-           
         </div>  
 
     </div>
