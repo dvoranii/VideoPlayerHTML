@@ -15,18 +15,18 @@ html {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /* background-color: black; */
+  background-color: blue;
   max-width: 800px;
   margin: 0 auto;
 }
 
 /* .video-wrapper {
-  background-color: red;
+  height: 500px;
 } */
 
 video {
   width: 100%;
-  max-width: 800px;
+  /* max-width: 800px; */
   animation: slideDownFadeIn 500ms ease;
   animation-fill-mode: forwards;
 }
@@ -45,9 +45,9 @@ video {
     rgba(133, 133, 133, 0.5)
   );
 
-  /* width: 100%; */
-  max-width: px;
+  width: 100%;
   margin: 0 auto;
+  max-width: 800px;
 }
 
 .left-controls {
@@ -176,4 +176,9 @@ button:hover::before {
 
   to {
   }
+}
+
+.bottom-controls {
+  display: flex;
+  justify-content: space-between;
 }

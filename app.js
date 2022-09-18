@@ -2,6 +2,8 @@ const video = document.querySelector(".video");
 const videoControls = document.getElementById("video-controls");
 const videoWorks = !!document.createElement("video").canPlayType;
 
+const videoWrapper = document.querySelector(".video-wrapper");
+
 // play/pause
 const playControls = document.querySelector("#play-btn");
 const playBtn = document.querySelector(".play");
@@ -16,6 +18,11 @@ const volumeMute = document.querySelector(".volume-mute");
 
 const volumeControl = document.querySelector(".volume");
 
+const fullScreenBtn = document.querySelector(".fullscreen-btn");
+const fullScreenIcons = document.querySelectorAll(".fullscreen-btn img");
+
+const pipBtn = document.querySelector(".pip-btn");
+
 if (videoWorks) {
   video.controls = false;
   videoControls.classList.remove("hidden");
@@ -24,6 +31,10 @@ if (videoWorks) {
 window.addEventListener("DOMContentLoaded", function () {
   volumeControl.value = 1;
   video.volume = 1;
+
+  if (!"pictureInPictureEnabled" in document) {
+    pipBtn.classList.add("hide");
+  }
 });
 
 function togglePlay() {
@@ -96,3 +107,56 @@ function toggleMute() {
   }
 }
 volumeBtnContainer.addEventListener("click", toggleMute);
+
+function toggleFullscreen() {
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+    videoControls.style.maxWidth = "83%";
+  } else if (document.webkitFullscreenElement) {
+    // Safari
+    document.webkitExitFullscreen();
+    videoControls.style.maxWidth = "83%";
+  } else if (videoWrapper.webkitRequestFullscreen) {
+    videoWrapper.webkitRequestFullscreen();
+    videoControls.style.maxWidth = "100%";
+  } else {
+    videoWrapper.requestFullscreen();
+    videoControls.style.maxWidth = "100%";
+  }
+}
+
+function updateFullscreenIcon() {
+  fullScreenIcons.forEach((icon) => icon.classList.toggle("hide"));
+
+  if (document.fullscreenElement) {
+    fullScreenBtn.setAttribute("data-title", "Exit full screen (f)");
+  } else {
+    fullScreenBtn.setAttribute("data-title", "Full screen (f)");
+  }
+}
+
+fullScreenBtn.addEventListener("click", toggleFullscreen);
+
+videoWrapper.addEventListener("fullscreenchange", updateFullscreenIcon);
+
+async function togglePip() {
+  try {
+    if (video !== document.pictureInPictureElement) {
+      pipBtn.disabled = true;
+      await video.requestPictureInPicture();
+    } else {
+      await document.exitPictureInPicture();
+    }
+  } catch (error) {
+    // might want to show a message to the user instead
+    console.error(error);
+    pipBtn.setAttribute(
+      "data-title",
+      `PIP not supported: ${navigator.userAgent}`
+    );
+  } finally {
+    pipBtn.disabled = false;
+  }
+}
+
+pipBtn.addEventListener("click", togglePip);
